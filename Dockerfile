@@ -49,7 +49,8 @@ RUN wget https://dl.google.com/android/repository/commandlinetools-linux-7583922
 # Download and setup FBX2glTF
 RUN wget https://github.com/godotengine/FBX2glTF/releases/latest/download/FBX2glTF-linux-x86_64.zip \
     && unzip FBX2glTF-linux-x86_64.zip \
-    && mv FBX2glTF-linux-x86_64/FBX2glTF-linux-x86_64 /fbx2gltf
+    && mv FBX2glTF-linux-x86_64/FBX2glTF-linux-x86_64 /fbx2gltf \
+    && rm -r FBX2glTF-linux-x86_64*
 
 ENV PATH="${ANDROID_HOME}/cmdline-tools/cmdline-tools/bin:${PATH}"
 
@@ -68,4 +69,4 @@ RUN echo 'export/android/debug_keystore_pass = "android"' >> ~/.config/godot/edi
 RUN echo 'export/android/force_system_user = false' >> ~/.config/godot/editor_settings-4.tres
 RUN echo 'export/android/timestamping_authority_url = ""' >> ~/.config/godot/editor_settings-4.tres
 RUN echo 'export/android/shutdown_adb_on_exit = true' >> ~/.config/godot/editor_settings-4.tres
-RUN sed -i 's/fbx2gltf_path = ".*"/fbx2gltf_path = "\/fbx2gltf"/' ~/.config/godot/editor_settings-4.tres
+RUN echo 'filesystem/import/fbx/fbx2gltf_path = "/fbx2gltf"' >> ~/.config/godot/editor_settings-4.tres
